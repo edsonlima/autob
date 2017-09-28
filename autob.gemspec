@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Edson Lima"]
   spec.email         = ["edsonalima@gmail.com"]
 
-  spec.summary       = 'An attempt to auto install missing gems in production, using Jruby'
-  spec.description   = 'This tries to install missing gems calling Bundler inside a .jar'
+  spec.summary       = 'An (useless) attempt to auto install missing gems in production, using Jruby'
+  spec.description   = 'This (useless) tries to install missing gems calling Bundler inside a .jar'
   spec.homepage      = "http://leosoft.com.br"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
