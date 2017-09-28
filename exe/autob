@@ -1,0 +1,70 @@
+#!/usr/bin/env ruby
+
+# require "autob"
+require 'java'
+require 'bundler'
+
+puts "################################################################################ /
+                Testando instalar *e* usar 'direto'
+################################################################################"
+
+ENV['GEM_HOME'] = './vendor'
+ENV['GEM_PATH'] = './vendor'
+ENV['BUNDLE_GEMFILE'] = './Dependencies'
+ENV['BUNDLE_PATH'] = "#{File.join(Dir.pwd, 'vendor')}"
+
+# puts "Executando => runtime.exec GEM_HOME=./vendor/jruby/2.3.0 GEM_PATH=./vendor/jruby/2.3.0 java -jar bundle-gem.jar -S mechanized.rb"
+puts "Executando =>"
+
+require 'bundler/cli'
+
+puts "GEM_HOME => #{ENV['GEM_HOME']}"
+puts "GEM_PATH => #{ENV['GEM_PATH']}"
+puts "BUNDLE_PATH => #{ENV['BUNDLE_PATH']}"
+puts "BUNDLE_GEMFILE => #{ENV['BUNDLE_GEMFILE']}"
+
+# O c?digo abaixo FUNCIONA!!
+# ChildProcess.posix_spawn = true
+# # process = ChildProcess.build('/bin/bash', '-c', 'java', '-jar', 'bundle-gem.jar', '-S', 'mechanized.rb')
+# process = ChildProcess.build('java', '-jar', 'bundle-gem.jar', '-S', 'mechanized.rb')
+# process.detach = true
+# process.cwd = Dir.pwd
+# process.io.inherit!
+# process.environment['GEM_HOME'] = './vendor/jruby/2.3.0'
+# process.environment['GEM_PATH'] = './vendor/jruby/2.3.0'
+# process.environment['BUNDLE_PATH'] = './vendor/jruby/2.3.0'
+# process.environment['BUNDLE_GEMFILE'] = './Gemfile'
+#
+# # process.environment['BUNDLE_GEMFILE'] = './vendor/jruby/2.3.0'
+#
+# process.start
+# process.wait
+
+
+puts " DIRETO ".center(80, '!')
+
+# puts "GEM_HOME => #{ENV['GEM_HOME']}"
+# puts "GEM_PATH => #{ENV['GEM_PATH']}}"
+# puts "BUNDLE_PATH => #{ENV['BUNDLE_PATH']}}"
+# puts "BUNDLE_GEMFILE => #{ENV['BUNDLE_GEMFILE']}}"
+
+puts "Adicionando o mechanize ao Gemdependencies..."
+File.open('./Autoload', 'a+') {|f| f.puts "gem 'mechanize'"}
+
+puts "Executando bundle..."
+Bundler::CLI.start
+
+
+puts "INSTALL SUCCESSFUL!!!"
+puts "Usando a gem com Bundler.require "
+
+Bundler.require
+
+# puts "Usando a gem... Com Gem.install e require!"
+#
+# Gem.install('mechanize')
+
+require 'mechanize'
+
+m = Mechanize.new
+m.get('https://google.com') {|page| puts page.inspect}
